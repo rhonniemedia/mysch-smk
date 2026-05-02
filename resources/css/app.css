@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* ============================================
+   Design Tokens — Tailwind Theme
+   ============================================ */
+@theme {
+    --color-primary: #ff1443;
+    --color-primary-hover: #0e4bd9;
+    --color-foreground: #080c1a;
+    --color-secondary: #6a7686;
+    --color-muted: #eff2f7;
+    --color-border: #e5e7eb;
+    --color-success: #30b22d;
+    --color-success-dark: #166534;
+    --color-error: #ed6b60;
+    --color-error-dark: #991b1b;
+    --color-warning: #fed71f;
+    --color-warning-light: #fef9c3;
+    --color-warning-dark: #854d0e;
+    --color-info: #ff1443;
+    --font-sans: "Roboto", sans-serif;
+}
+
+/* ============================================
+   CSS Variables (untuk JS / non-Tailwind)
+   ============================================ */
+:root {
+    --primary: #ff1443;
+    --primary-hover: #0e4bd9;
+    --foreground: #080c1a;
+    --secondary: #6a7686;
+    --muted: #eff2f7;
+    --border: #e5e7eb;
+    --success: #30b22d;
+    --error: #ed6b60;
+    --warning: #fed71f;
+    --info: #ff1443;
+}
+
+/* ============================================
+   Custom Select Styling
+   ============================================ */
+select {
+    appearance: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 10px center;
+    padding-right: 40px;
+}
+
+/* ============================================
+   Scrollbar Hide Utility
+   ============================================ */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

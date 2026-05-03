@@ -39,12 +39,28 @@ class AppServiceProvider extends ServiceProvider
                     (isset($namaParts[1]) ? substr($namaParts[1], 0, 1) : substr($namaParts[0], 1, 1))
             );
 
+            $unreadCount = 0;
+            $unreadPengumuman = collect();
+            if (Auth::guard('pelajar')->check()) {
+                $pelajarId = Auth::guard('pelajar')->id();
+                $unreadPengumuman = \App\Models\DataPengumuman::aktif()
+                    ->whereDoesntHave('pelajars', function ($q) use ($pelajarId) {
+                        $q->where('pelajar_id', $pelajarId);
+                    })
+                    ->orderBy('jadwal_tayang', 'desc')
+                    ->limit(5)
+                    ->get();
+                $unreadCount = $unreadPengumuman->count();
+            }
+
             $view->with([
                 'authUser'  => $authUser,
                 'namaUser'  => $namaUser,
                 'firstName' => $firstName,
                 'inisial'   => $inisial,
                 'roleUser'  => Auth::guard('pelajar')->check() ? 'Pelajar' : 'Administrator',
+                'unreadCount'  => $unreadCount,
+                'unreadPengumuman'  => $unreadPengumuman,
             ]);
         });
     }

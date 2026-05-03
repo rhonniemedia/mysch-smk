@@ -73,4 +73,16 @@ class DataPelajar extends Authenticatable
         // Pelajar memiliki satu data tracer study[cite: 3, 4]
         return $this->hasOne(DataTracerStudy::class, 'data_pelajar_id');
     }
+
+    public function pengumumans()
+    {
+        return $this->belongsToMany(
+            DataPengumuman::class,       // Model tujuan
+            'data_pengumuman_pelajars', // Nama tabel pivot
+            'pelajar_id',               // Foreign key di tabel pivot untuk model ini
+            'pengumuman_id'             // Foreign key di tabel pivot untuk model tujuan
+        )
+            ->withPivot('dibaca_pada')       // Mengambil kolom riwayat baca[cite: 1]
+            ->withTimestamps();
+    }
 }

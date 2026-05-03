@@ -55,7 +55,7 @@
       <div class="flex flex-col gap-1">
 
         <!-- Pengumuman -->
-        <a href="#"
+        <a href="{{ route('announcement.index') }}"
           class="{{ Request::is('announcement*') ? 'bg-muted' : 'bg-white hover:bg-muted' }} group w-full text-left flex items-center rounded-xl p-4 gap-3 transition-all duration-300 cursor-pointer">
           <i data-lucide="megaphone" class="{{ Request::is('announcement*') ? 'text-foreground' : 'text-secondary group-hover:text-foreground' }} size-6 transition-all duration-300"></i>
           <span class="{{ Request::is('announcement*') ? 'font-semibold text-foreground' : 'font-medium text-secondary group-hover:text-foreground' }} transition-all duration-300">Pengumuman</span>

@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DataKeahlianSeeder::class,
-            // DataPelajarSeeder::class,
+            DataPelajarSeeder::class,
+            DataPengumumanSeeder::class,
         ]);
 
         // User::factory(10)->create();

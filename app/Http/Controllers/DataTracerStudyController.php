@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPelajar;
+use App\Models\DataPengumuman;
 use App\Models\DataTracerStudy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,9 +71,19 @@ class DataTracerStudyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DataTracerStudy $tracerStudy)
+    public function show($uuid)
     {
-        //
+        $pengumuman = DataPengumuman::aktif()->findOrFail($uuid);
+
+        // Pastikan mengambil user dari guard 'pelajar'
+        $user = auth()->guard('pelajar')->user();
+
+        if ($user) {
+            // Catat riwayat baca
+            $user->pengumumans()->syncWithoutDetaching([
+                $pengumuman->id => ['dibaca_pada' => now()]
+            ]);
+        }
     }
 
     /**

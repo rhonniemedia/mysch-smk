@@ -42,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'pelajar' => [              // ← guard baru untuk siswa
+            'driver' => 'session',
+            'provider' => 'pelajars',
+        ],
     ],
 
     /*
@@ -65,6 +69,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
+        ],
+        'pelajars' => [             // ← provider baru
+            'driver' => 'pelajar-eloquent',
+            'model' => App\Models\DataPelajar::class,
         ],
 
         // 'users' => [

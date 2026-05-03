@@ -27,24 +27,10 @@
       <div class="flex flex-col gap-1">
 
         <!-- Beranda -->
-        <a href="{{ route('dashboard.index') }}"
+        <a href="{{ route('student.dashboard') }}"
           class="{{ Request::is('dashboard') ? 'bg-muted' : 'bg-white hover:bg-muted' }} group w-full text-left flex items-center rounded-xl p-4 gap-3 transition-all duration-300 cursor-pointer">
           <i data-lucide="layout-dashboard" class="{{ Request::is('dashboard') ? 'text-foreground' : 'text-secondary group-hover:text-foreground' }} size-6 transition-all duration-300"></i>
           <span class="{{ Request::is('dashboard') ? 'font-semibold text-foreground' : 'font-medium text-secondary group-hover:text-foreground' }} transition-all duration-300">Beranda</span>
-        </a>
-
-        <!-- Pengumuman -->
-        <a href="{{ route('announcement.index') }}"
-          class="{{ Request::is('announcement*') ? 'bg-muted' : 'bg-white hover:bg-muted' }} group w-full text-left flex items-center rounded-xl p-4 gap-3 transition-all duration-300 cursor-pointer">
-          <i data-lucide="megaphone" class="{{ Request::is('announcement*') ? 'text-foreground' : 'text-secondary group-hover:text-foreground' }} size-6 transition-all duration-300"></i>
-          <span class="{{ Request::is('announcement*') ? 'font-semibold text-foreground' : 'font-medium text-secondary group-hover:text-foreground' }} transition-all duration-300">Pengumuman</span>
-        </a>
-
-        <!-- Tracer Study -->
-        <a href="{{ route('tracer.index') }}"
-          class="{{ Request::is('tracer*') ? 'bg-muted' : 'bg-white hover:bg-muted' }} group w-full text-left flex items-center rounded-xl p-4 gap-3 transition-all duration-300 cursor-pointer">
-          <i data-lucide="file-text" class="{{ Request::is('tracer*') ? 'text-foreground' : 'text-secondary group-hover:text-foreground' }} size-6 transition-all duration-300"></i>
-          <span class="{{ Request::is('tracer*') ? 'font-semibold text-foreground' : 'font-medium text-secondary group-hover:text-foreground' }} transition-all duration-300">Tracer Study</span>
         </a>
 
         <!-- Profil Siswa -->
@@ -54,30 +40,27 @@
           <span class="{{ Request::is('profile*') ? 'font-semibold text-foreground' : 'font-medium text-secondary group-hover:text-foreground' }} transition-all duration-300">Profil Siswa</span>
         </a>
 
+        <!-- Tracer Study -->
+        <a href="{{ route('tracer.index') }}"
+          class="{{ Request::is('tracer*') ? 'bg-muted' : 'bg-white hover:bg-muted' }} group w-full text-left flex items-center rounded-xl p-4 gap-3 transition-all duration-300 cursor-pointer">
+          <i data-lucide="file-text" class="{{ Request::is('tracer*') ? 'text-foreground' : 'text-secondary group-hover:text-foreground' }} size-6 transition-all duration-300"></i>
+          <span class="{{ Request::is('tracer*') ? 'font-semibold text-foreground' : 'font-medium text-secondary group-hover:text-foreground' }} transition-all duration-300">Tracer Study</span>
+        </a>
+
       </div>
     </div>
 
     <div class="flex flex-col gap-4">
       <h3 class="font-medium text-sm text-secondary">Informasi</h3>
       <div class="flex flex-col gap-1">
-        <a href="#" class="group cursor-pointer">
-          <div class="flex items-center rounded-xl p-4 gap-3 bg-white group-[.active]:bg-muted group-hover:bg-muted transition-all duration-300">
-            <i data-lucide="bar-chart-3" class="size-6 text-secondary group-[.active]:text-foreground group-hover:text-foreground transition-all duration-300"></i>
-            <span class="font-medium text-secondary group-[.active]:font-semibold group-[.active]:text-foreground group-hover:text-foreground transition-all duration-300">Pengumuman</span>
-          </div>
+
+        <!-- Pengumuman -->
+        <a href="#"
+          class="{{ Request::is('announcement*') ? 'bg-muted' : 'bg-white hover:bg-muted' }} group w-full text-left flex items-center rounded-xl p-4 gap-3 transition-all duration-300 cursor-pointer">
+          <i data-lucide="megaphone" class="{{ Request::is('announcement*') ? 'text-foreground' : 'text-secondary group-hover:text-foreground' }} size-6 transition-all duration-300"></i>
+          <span class="{{ Request::is('announcement*') ? 'font-semibold text-foreground' : 'font-medium text-secondary group-hover:text-foreground' }} transition-all duration-300">Pengumuman</span>
         </a>
-        <a href="#" class="group cursor-pointer">
-          <div class="flex items-center rounded-xl p-4 gap-3 bg-white group-[.active]:bg-muted group-hover:bg-muted transition-all duration-300">
-            <i data-lucide="dollar-sign" class="size-6 text-secondary group-[.active]:text-foreground group-hover:text-foreground transition-all duration-300"></i>
-            <span class="font-medium text-secondary group-[.active]:font-semibold group-[.active]:text-foreground group-hover:text-foreground transition-all duration-300">Tracer Study</span>
-          </div>
-        </a>
-        <a href="#" class="group cursor-pointer">
-          <div class="flex items-center rounded-xl p-4 gap-3 bg-white group-[.active]:bg-muted group-hover:bg-muted transition-all duration-300">
-            <i data-lucide="settings" class="size-6 text-secondary group-[.active]:text-foreground group-hover:text-foreground transition-all duration-300"></i>
-            <span class="font-medium text-secondary group-[.active]:font-semibold group-[.active]:text-foreground group-hover:text-foreground transition-all duration-300">Settings</span>
-          </div>
-        </a>
+
       </div>
     </div>
   </div>
@@ -85,11 +68,28 @@
   <div class="absolute bottom-0 left-0 w-[280px]">
     <div class="flex items-center justify-between border-t bg-white border-border p-5 gap-3">
       <div class="min-w-0">
-        <p class="font-semibold text-foreground">HR Support</p>
-        <a href="#" class="cursor-pointer"><span class="text-sm text-secondary hover:text-primary hover:underline transition-all duration-300">Contact IT</span></a>
+        <p class="font-semibold text-foreground">{{ $namaUser }}</p>
+        <a href="#" class="cursor-pointer"><span class="text-sm text-secondary hover:text-primary hover:underline transition-all duration-300">{{ $roleUser }}</span></a>
       </div>
       <div class="size-11 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-        <i data-lucide="life-buoy" class="size-6 text-primary"></i>
+        <!-- Tombol Logout -->
+        <form method="POST" action="{{ route('logout') }}" x-data="{ loggingOut: false }" @submit="loggingOut = true">
+          @csrf
+          <button type="submit"
+            :disabled="loggingOut"
+            class="size-11 bg-error/10 hover:bg-error text-error hover:text-white rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 cursor-pointer group"
+            title="Keluar">
+
+            <!-- Spinner saat proses logout -->
+            <svg x-show="loggingOut" class="animate-spin size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" x-cloak>
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+
+            <!-- Ikon Logout (tampil jika tidak sedang loading) -->
+            <i x-show="!loggingOut" data-lucide="log-out" class="size-6"></i>
+          </button>
+        </form>
       </div>
     </div>
   </div>

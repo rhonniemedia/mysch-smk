@@ -1,11 +1,29 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DataTracerStudyController;
 use Illuminate\Support\Facades\Route;
 
-// Beranda / Dashboard
-Route::get('/dashboard', function () {
-    return view('pages.dashboard'); // Sesuaikan dengan folder view Anda
-})->name('dashboard.index');
+// Auth
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Dashboard Admin
+Route::middleware(['auth:web'])->group(function () {
+    Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+});
+
+// Dashboard Siswa
+Route::middleware(['auth:pelajar'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('student.dashboard');
+});
+
+
+
+
 
 // Pengumuman
 Route::get('/announcement', function () {
@@ -13,14 +31,15 @@ Route::get('/announcement', function () {
 })->name('announcement.index');
 
 // Tracer Study
-Route::get('/tracer-study', function () {
-    return view('pages.tracer');
-})->name('tracer.index');
+Route::middleware('auth:pelajar')->group(function () {
+    Route::get('/tracer-study', [DataTracerStudyController::class, 'index'])->name('tracer.index');
+    Route::post('/tracer-study', [DataTracerStudyController::class, 'store'])->name('tracer.store');
+});
 
 // Profil Siswa
-Route::get('/profile', function () {
-    return view('pages.profile');
-})->name('profile.index');
+Route::middleware(['auth:pelajar'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+});
 
 // Daftar Pengumuman
 Route::get('/announcement', function () {

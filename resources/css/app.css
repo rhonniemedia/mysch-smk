@@ -1,11 +1,13 @@
+/* resources/css/app.css */
 @import "tailwindcss";
 
 /* ============================================
    Design Tokens — Tailwind Theme
    ============================================ */
 @theme {
-    --color-primary: #ff1443;
-    --color-primary-hover: #0e4bd9;
+    /* Menggunakan warna merah khas SMKN 1 Rejang Lebong */
+    --color-primary: #c0192f;
+    --color-primary-hover: #96121f;
     --color-foreground: #080c1a;
     --color-secondary: #6a7686;
     --color-muted: #eff2f7;
@@ -17,16 +19,16 @@
     --color-warning: #fed71f;
     --color-warning-light: #fef9c3;
     --color-warning-dark: #854d0e;
-    --color-info: #ff1443;
+    --color-info: #c0192f;
     --font-sans: "Roboto", sans-serif;
 }
 
 /* ============================================
-   CSS Variables (untuk JS / non-Tailwind)
+   CSS Variables
    ============================================ */
 :root {
-    --primary: #ff1443;
-    --primary-hover: #0e4bd9;
+    --primary: #c0192f;
+    --primary-hover: #96121f;
     --foreground: #080c1a;
     --secondary: #6a7686;
     --muted: #eff2f7;
@@ -34,12 +36,14 @@
     --success: #30b22d;
     --error: #ed6b60;
     --warning: #fed71f;
-    --info: #ff1443;
+    --info: #c0192f;
 }
 
 /* ============================================
-   Custom Select Styling
+   Base Styles & Utilities
    ============================================ */
+[x-cloak] { display: none !important; }
+
 select {
     appearance: none;
     background-repeat: no-repeat;
@@ -49,14 +53,96 @@ select {
     padding-right: 40px;
 }
 
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* ============================================
-   Scrollbar Hide Utility
+   Login Page Components & Animations
    ============================================ */
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
+@layer components {
+    /* Animated background grid */
+    .bg-grid {
+        background-image:
+            linear-gradient(rgba(192,25,47,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(192,25,47,0.06) 1px, transparent 1px);
+        background-size: 40px 40px;
+        animation: grid-move 20s linear infinite;
+    }
+
+    /* Floating blobs */
+    .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.18;
+        animation: blob-float 8s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    .blob-1 { animation-delay: 0s; }
+    .blob-2 { animation-delay: -3s; }
+    .blob-3 { animation-delay: -5s; }
+
+    /* Card & Stagger Animations */
+    .card-enter {
+        animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .stagger-1 { animation: fade-up 0.5s 0.1s cubic-bezier(0.16,1,0.3,1) both; }
+    .stagger-2 { animation: fade-up 0.5s 0.2s cubic-bezier(0.16,1,0.3,1) both; }
+    .stagger-3 { animation: fade-up 0.5s 0.3s cubic-bezier(0.16,1,0.3,1) both; }
+    .stagger-4 { animation: fade-up 0.5s 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+    .stagger-5 { animation: fade-up 0.5s 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+
+    /* UI Elements */
+    .input-field:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(192,25,47,0.12);
+    }
+
+    .btn-primary {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .dot-pulse {
+        animation: dot-pulse 2s ease-in-out infinite;
+    }
 }
 
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+/* ============================================
+   Keyframes
+   ============================================ */
+@keyframes grid-move {
+    0%   { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+}
+
+@keyframes blob-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-30px) scale(1.05); }
+}
+
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(28px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dot-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.8); }
 }

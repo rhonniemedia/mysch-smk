@@ -7,6 +7,10 @@ use App\Http\Controllers\DataTracerStudyController;
 use Illuminate\Support\Facades\Route;
 
 // Auth
+Route::get('/', function () {
+    return redirect()->route('student.dashboard');
+});
+
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

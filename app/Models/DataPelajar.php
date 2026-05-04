@@ -15,6 +15,9 @@ class DataPelajar extends Authenticatable
 
     protected $table = 'data_pelajars';
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $fillable = [
         'nama',
         'jenis_kelamin',
@@ -63,6 +66,14 @@ class DataPelajar extends Authenticatable
         });
     }
 
+    public function getTanggalLahirFormattedAttribute()
+    {
+        if (!$this->tanggal_lahir) return '-';
+
+        return \Carbon\Carbon::createFromFormat('dmY', $this->tanggal_lahir)
+            ->translatedFormat('j F Y');
+    }
+
     public function konsKeahlian()
     {
         return $this->belongsTo(DataKonsKeahlian::class, 'keahlian_id');
@@ -84,5 +95,10 @@ class DataPelajar extends Authenticatable
         )
             ->withPivot('dibaca_pada')       // Mengambil kolom riwayat baca[cite: 1]
             ->withTimestamps();
+    }
+
+    public function files()
+    {
+        return $this->hasMany(DataFile::class, 'pelajar_id');
     }
 }

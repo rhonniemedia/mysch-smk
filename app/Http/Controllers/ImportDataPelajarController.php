@@ -15,6 +15,8 @@ class ImportDataPelajarController extends Controller
 
     public function store(Request $request)
     {
+        set_time_limit(600);
+
         $request->validate([
             'file' => [
                 'required',

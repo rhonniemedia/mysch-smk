@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
 <div class="mb-6 flex items-center gap-3">
@@ -38,11 +38,40 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3">
-            <button onclick="triggerGlobalModal({type:'success',title:'SKL Berhasil Diunduh',message:'Surat Keterangan Lulus Anda telah berhasil diunduh dan disimpan ke perangkat.',confirmText:'Oke'})"
+            @if($sudahIsiTracer)
+            <button onclick="triggerDownloadAndModal()"
                 class="flex-1 flex items-center justify-center gap-2 bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-primary-hover transition-all cursor-pointer shadow-lg shadow-primary/20">
                 <i data-lucide="download" class="size-5"></i> Surat Keterangan Lulus
             </button>
+            @else
+            <button onclick="triggerGlobalModal({
+                type: 'warning',
+                title: 'Isi Tracer Study Dulu',
+                message: 'Anda harus mengisi Tracer Study terlebih dahulu sebelum dapat mengunduh SKL.',
+                confirmText: 'Isi Sekarang',
+                cancelText: 'Nanti',
+                onConfirm: () => window.location.href = '{{ route('tracer.index') }}'
+            })"
+                class="flex-1 flex items-center justify-center gap-2 bg-gray-400 text-white py-3.5 rounded-xl font-bold transition-all cursor-pointer shadow-lg">
+                <i data-lucide="lock" class="size-5"></i> Surat Keterangan Lulus
+            </button>
+            @endif
         </div>
+
+        <script>
+            function triggerDownloadAndModal() {
+                triggerGlobalModal({
+                    type: 'success',
+                    title: 'SKL Berhasil Diunduh',
+                    message: 'Surat Keterangan Lulus Anda telah berhasil diunduh dan disimpan ke perangkat.',
+                    confirmText: 'Oke'
+                });
+
+                setTimeout(() => {
+                    window.location.href = "{{ route('skl.download') }}";
+                }, 500);
+            }
+        </script>
     </div>
 
     <!-- Sidebar Kanan -->

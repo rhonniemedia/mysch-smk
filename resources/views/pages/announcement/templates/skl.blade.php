@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
 <div class="mb-6 flex items-center gap-3">
@@ -25,10 +25,38 @@
         <p class="text-secondary text-sm leading-relaxed flex-1">
             {{ $meta['deskripsi'] ?? 'Surat Keterangan Lulus dapat digunakan sebagai pengganti ijazah sementara sebelum ijazah fisik diterbitkan.' }}
         </p>
-        <button onclick="triggerGlobalModal({type:'success',title:'SKL Berhasil Diunduh',message:'Surat Keterangan Lulus Anda telah berhasil diunduh.',confirmText:'Oke'})"
+        @if($sudahIsiTracer)
+        <button onclick="triggerDownloadAndModal()"
             class="flex items-center justify-center gap-2 bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-primary-hover transition-all cursor-pointer shadow-lg shadow-primary/20">
             <i data-lucide="download" class="size-5"></i> Unduh Surat Keterangan Lulus
         </button>
+
+        <script>
+            function triggerDownloadAndModal() {
+                triggerGlobalModal({
+                    type: 'success',
+                    title: 'SKL Berhasil Diunduh',
+                    message: 'Surat Keterangan Lulus Anda telah berhasil diunduh.',
+                    confirmText: 'Oke'
+                });
+
+                setTimeout(() => {
+                    window.location.href = "{{ route('skl.download') }}";
+                }, 500);
+            }
+        </script>
+        @else
+        <button onclick="triggerGlobalModal({
+            type: 'warning',
+            title: 'Tracer Study Belum Diisi',
+            message: 'Anda harus mengisi Tracer Study terlebih dahulu sebelum mengunduh SKL.',
+            confirmText: 'Isi Sekarang',
+            onConfirm: () => window.location.href = '{{ route('tracer.index') }}'
+        })"
+            class="flex items-center justify-center gap-2 bg-gray-400 text-white py-3.5 rounded-xl font-bold transition-all cursor-pointer shadow-lg">
+            <i data-lucide="lock" class="size-5"></i> Unduh Surat Keterangan Lulus
+        </button>
+        @endif
     </div>
     <div class="bg-gradient-to-br from-[#ff1443] to-[#c40030] rounded-2xl p-8 text-white flex flex-col gap-4">
         <div class="size-12 bg-white/20 rounded-xl flex items-center justify-center">

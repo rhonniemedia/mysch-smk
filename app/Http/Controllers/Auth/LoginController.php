@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,22 +22,19 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-        $credentials = [
-            'username' => $request->username,
-            'password' => $request->password,
-        ];
-
-        // Coba login sebagai admin dulu
-        if (Auth::guard('web')->attempt([
-            'email' => $request->username,
-            'password' => $request->password,
-        ])) {
+        // Coba login sebagai admin (via hash karena kolom terenkripsi)
+        $admin = User::findForLogin($request->username);
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            Auth::guard('web')->login($admin, $request->boolean('remember'));
             $request->session()->regenerate();
             return redirect()->route('admin.dashboard');
         }
 
-        // Coba login sebagai siswa
-        if (Auth::guard('pelajar')->attempt($credentials)) {
+        // Coba login sebagai pelajar
+        // PelajarUserProvider::retrieveByCredentials() mencari berdasarkan key 'username'
+        $credentialsPelajar = ['username' => $request->username, 'password' => $request->password];
+
+        if (Auth::guard('pelajar')->attempt($credentialsPelajar, $request->boolean('remember'))) {
             $request->session()->regenerate();
             return redirect()->route('student.dashboard');
         }

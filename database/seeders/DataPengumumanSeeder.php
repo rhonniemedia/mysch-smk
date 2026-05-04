@@ -20,7 +20,7 @@ class DataPengumumanSeeder extends Seeder
                 'slug' => Str::slug('Pengumuman Hasil Kelulusan TP 2025/2026'),
                 'kategori' => 'Kelulusan',
                 'template_blade' => 'pages.announcement.templates.kelulusan',
-                'jadwal_tayang' => '2026-05-04 00:15:00', // Sesuai contoh
+                'jadwal_tayang' => '2026-05-04 16:30:00',
                 'konten_dinamis' => [
                     'icon' => 'award',
                     'no_sk' => 'B/400.3.11.1/32/SMKN1RL/2026',
@@ -39,7 +39,7 @@ class DataPengumumanSeeder extends Seeder
                 'slug' => Str::slug('Surat Keterangan Lulus (SKL) Dapat Diunduh Mulai Hari Ini'),
                 'kategori' => 'Dokumen',
                 'template_blade' => 'pages.announcement.templates.skl',
-                'jadwal_tayang' => '2026-05-04 00:00:00', // Sesuai contoh[cite: 1]
+                'jadwal_tayang' => '2026-05-04 16:30:00',
                 'konten_dinamis' => [
                     'icon' => 'file-badge',
                     'berlaku_hingga' => 'Terbit Ijazah',

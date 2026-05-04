@@ -143,7 +143,7 @@
                 <!-- Header -->
                 <div class="flex flex-col gap-1 stagger-1">
                     <h2 class="text-foreground font-black text-2xl xl:text-3xl leading-tight">Selamat datang!</h2>
-                    <p class="text-secondary text-sm">Masuk dengan NISN dan password untuk melanjutkan.</p>
+                    <p class="text-secondary text-sm">Masuk dengan Username dan password untuk melanjutkan.</p>
                 </div>
 
                 <!-- Error alert -->
@@ -172,9 +172,9 @@
                     @csrf
 
                     <div class="flex flex-col gap-4 stagger-2">
-                        <!-- NISN -->
+                        <!-- Username -->
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-xs font-bold text-foreground uppercase tracking-widest">NISN Siswa</label>
+                            <label class="text-xs font-bold text-foreground uppercase tracking-widest">Username</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                                     <i data-lucide="hash" class="size-4 text-secondary"></i>
@@ -185,7 +185,7 @@
                                     x-model="nisn"
                                     value="{{ old('username') }}"
                                     inputmode="numeric"
-                                    maxlength="10"
+                                    maxlength="75"
                                     placeholder="Contoh: 0012345678"
                                     class="input-field w-full border border-border rounded-xl pl-10 pr-4 py-3 text-sm text-foreground placeholder:text-secondary/60 transition-all duration-200"
                                     :class="errorMsg ? 'border-red-300 bg-red-50' : 'bg-white'" />

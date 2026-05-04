@@ -51,29 +51,29 @@ class DataPengumumanController extends Controller
      */
     public function show($uuid)
     {
-        // 1. Ambil data pengumuman
         $pengumuman = DataPengumuman::aktif()->findOrFail($uuid);
         $pelajar = auth()->guard('pelajar')->user();
 
-        // 2. Hitung statistik partisipasi dari DataTracerStudy
         $totalAlumni = DataPelajar::count();
         $totalMengisi = DataTracerStudy::count();
         $persentase = ($totalAlumni > 0) ? round(($totalMengisi / $totalAlumni) * 100) : 0;
 
-        // 3. Gabungkan persentase ke dalam meta (konten_dinamis)
         $meta = $pengumuman->konten_dinamis;
         $meta['partisipasi'] = $persentase . '%';
 
-        // 4. Catat riwayat baca lewat relasi di DataPengumuman (bukan dari $pelajar)
         $pengumuman->pelajars()->syncWithoutDetaching([
             $pelajar->id => ['dibaca_pada' => now()]
         ]);
 
+        // Cek apakah pelajar sudah mengisi tracer study
+        $sudahIsiTracer = DataTracerStudy::where('data_pelajar_id', $pelajar->id)->exists();
+
         return view($pengumuman->template_blade, [
-            'pengumuman' => $pengumuman,
-            'meta'       => $meta,
-            'judul'      => $pengumuman->judul,
-            'title'      => 'Pengumuman'
+            'pengumuman'     => $pengumuman,
+            'meta'           => $meta,
+            'judul'          => $pengumuman->judul,
+            'title'          => 'Pengumuman',
+            'sudahIsiTracer' => $sudahIsiTracer, // tambahkan ini
         ]);
     }
 

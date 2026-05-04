@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
 
@@ -107,7 +107,7 @@
     <h3 class="font-bold text-lg text-foreground mb-4">Layanan Utama</h3>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <!-- Card Pengumuman -->
-      <a href="#"
+      <a href="{{ route('announcement.index') }}"
         class="group flex flex-col rounded-2xl border-2 border-border hover:border-primary p-6 bg-white transition-all duration-300 cursor-pointer hover:shadow-xl">
         <div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
           <i data-lucide="megaphone" class="size-7 text-primary"></i>
